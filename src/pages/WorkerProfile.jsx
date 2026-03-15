@@ -65,6 +65,9 @@ const WorkerProfile = () => {
                         <div className="pb-3 w-full">
                             <h1 className="text-4xl font-extrabold text-slate-900 mb-2">{worker.name}</h1>
                             <div className="flex flex-wrap items-center gap-3 mb-3 justify-center md:justify-start">
+                                <span className="inline-block bg-teal-500 text-white px-5 py-1.5 rounded-full text-sm font-black uppercase tracking-widest shadow-lg shadow-teal-100">
+                                    {t(worker.category) || t('Worker')}
+                                </span>
                                 <span className="inline-block bg-emerald-100 text-emerald-800 px-5 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider border border-emerald-200">
                                     {worker.jobType}
                                 </span>

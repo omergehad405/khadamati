@@ -11,6 +11,9 @@ import RegisterPage from './pages/RegisterPage';
 import WorkerSettingsPage from './pages/WorkerSettingsPage';
 import AuthProvider from './context/AuthProvider';
 
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
+
 function App() {
     const { i18n } = useTranslation();
 
@@ -29,6 +32,8 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/search" element={<SearchPage />} />
                             <Route path="/categories" element={<CategoriesPage />} />
+                            <Route path="/about" element={<AboutUs />} />
+                            <Route path="/contact" element={<ContactUs />} />
                             <Route path="/worker/:id" element={<WorkerProfile />} />
                             <Route path="/login" element={<LoginPage />} />
                             <Route path="/register" element={<RegisterPage />} />

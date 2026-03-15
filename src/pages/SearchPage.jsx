@@ -10,16 +10,26 @@ const SearchPage = () => {
 
     const [workers, setWorkers] = useState([]);
     const [jobType, setJobType] = useState(searchParams.get('type') || '');
+    const [category, setCategory] = useState(searchParams.get('category') || '');
     const [location, setLocation] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    // Dynamic Title based on category
+    const getPageTitle = () => {
+        if (!category) return t('Find_workers');
+        if (category === 'Worker') return t('Workers');
+        if (category === 'Doctor') return t('Doctors');
+        if (category === 'Engineer') return t('Engineers');
+        return t('Find_workers');
+    };
 
     const handleSearch = async (e) => {
         if (e) e.preventDefault();
         setLoading(true);
         setError(null);
         try {
-            const res = await axios.get(`https://khadamati-backend-mifb.onrender.com/api/workers/search/filter?jobType=${jobType}&location=${location}`);
+            const res = await axios.get(`https://khadamati-backend-mifb.onrender.com/api/workers/search/filter?jobType=${jobType}&location=${location}&category=${category}`);
             setWorkers(res.data.data.workers);
         } catch (err) {
             setError(err.response?.data?.message || 'An error occurred fetching workers.');
@@ -28,20 +38,48 @@ const SearchPage = () => {
         }
     };
 
+    // Sync state when URL params change (e.g., navigating from Categories page)
+    useEffect(() => {
+        const urlCategory = searchParams.get('category') || '';
+        const urlType = searchParams.get('type') || '';
+        setCategory(urlCategory);
+        setJobType(urlType);
+    }, [searchParams]);
+
+    // Re-run search when category or other core filters change
     useEffect(() => {
         handleSearch();
-    }, []);
+    }, [category]);
 
     return (
         <div className="max-w-6xl mx-auto animate-fadeIn">
+            <div className="text-center mb-12">
+                <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 animate-slideUp">
+                    {getPageTitle()}
+                </h1>
+                <div className="w-20 h-1.5 bg-teal-500 mx-auto rounded-full"></div>
+            </div>
+
             <div className="bg-white rounded-3xl shadow-lg p-8 mb-12 border border-slate-100">
-                <h2 className="text-3xl font-extrabold mb-8 text-slate-900">Find Workers</h2>
-                <form onSubmit={handleSearch} className="grid md:grid-cols-3 gap-6">
+                <form onSubmit={handleSearch} className="grid md:grid-cols-4 gap-6">
                     <div>
-                        <label className="block text-slate-700 font-bold mb-2">Job Type</label>
+                        <label className="block text-slate-700 font-bold mb-2">{t('Category')}</label>
+                        <select
+                            className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:outline-none focus:ring-0 focus:border-emerald-500 transition bg-slate-50 font-medium appearance-none cursor-pointer"
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                            <option value="">{t('All') || 'All'}</option>
+                            <option value="Worker">{t('Workers')}</option>
+                            <option value="Doctor">{t('Doctors')}</option>
+                            <option value="Engineer">{t('Engineers')}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label className="block text-slate-700 font-bold mb-2">{t('SubCategory')}</label>
                         <input
                             type="text"
-                            placeholder="e.g. Plumber, Electrician"
+                            placeholder={t('SearchPlaceholder') || "e.g. Plumber, njar..."}
                             className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:outline-none focus:ring-0 focus:border-emerald-500 transition bg-slate-50 font-medium"
                             value={jobType}
                             onChange={(e) => setJobType(e.target.value)}

@@ -10,7 +10,7 @@ const RegisterPage = () => {
 
     const [role, setRole] = useState('user'); // 'user' or 'worker'
     const [formData, setFormData] = useState({
-        name: '', email: '', password: '', jobType: '', phone: '', city: '', area: '', address: '', experienceYears: ''
+        name: '', email: '', password: '', category: '', jobType: '', phone: '', city: '', area: '', address: '', experienceYears: ''
     });
 
     const [imageFile, setImageFile] = useState(null);
@@ -135,8 +135,32 @@ const RegisterPage = () => {
                                 <input type="text" name="phone" required className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium" value={formData.phone} onChange={onChange} />
                             </div>
                             <div>
-                                <label className="block text-slate-700 font-bold mb-2">{t('JobType')}</label>
-                                <input type="text" name="jobType" placeholder="e.g. Plumber" required className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium" value={formData.jobType} onChange={onChange} />
+                                <label className="block text-slate-700 font-bold mb-2">{t('Category')}</label>
+                                <select 
+                                    name="category" 
+                                    required 
+                                    className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium appearance-none cursor-pointer" 
+                                    value={formData.category} 
+                                    onChange={onChange}
+                                >
+                                    <option value="">{t('SelectCategory')}</option>
+                                    <option value="Worker">{t('Workers')}</option>
+                                    <option value="Doctor">{t('Doctors')}</option>
+                                    <option value="Engineer">{t('Engineers')}</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-slate-700 font-bold mb-2">{t('SubCategory')}</label>
+                                <input 
+                                    type="text" 
+                                    name="jobType" 
+                                    placeholder={formData.category === 'Doctor' ? "e.g. Surgeon" : formData.category === 'Engineer' ? "e.g. Architect" : "e.g. Plumber"} 
+                                    required 
+                                    disabled={!formData.category}
+                                    className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium disabled:opacity-50" 
+                                    value={formData.jobType} 
+                                    onChange={onChange} 
+                                />
                             </div>
                             <div>
                                 <label className="block text-slate-700 font-bold mb-2">{t('ExperienceYears')}</label>

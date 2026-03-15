@@ -9,7 +9,7 @@ const WorkerSettingsPage = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        name: '', phone: '', city: '', area: '', address: '', description: '', jobType: '', experienceYears: '', services: []
+        name: '', phone: '', city: '', area: '', address: '', description: '', jobType: '', category: '', experienceYears: '', services: []
     });
 
     const [successMsg, setSuccessMsg] = useState('');
@@ -34,6 +34,7 @@ const WorkerSettingsPage = () => {
                 address: worker.address || '',
                 description: worker.description || '',
                 jobType: worker.jobType || '',
+                category: worker.category || '',
                 experienceYears: worker.experienceYears || '',
                 services: worker.services || []
             });
@@ -194,6 +195,21 @@ const WorkerSettingsPage = () => {
                             <div>
                                 <label className="block text-slate-700 font-bold mb-2">{t('Email')} (Read Only)</label>
                                 <input type="email" readOnly className="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-100 font-medium text-slate-500 cursor-not-allowed" value={worker.email} />
+                            </div>
+                            <div>
+                                <label className="block text-slate-700 font-bold mb-2">{t('Category')}</label>
+                                <select
+                                    name="category"
+                                    required
+                                    className="w-full px-5 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium appearance-none cursor-pointer"
+                                    value={formData.category}
+                                    onChange={onChange}
+                                >
+                                    <option value="">{t('SelectCategory')}</option>
+                                    <option value="Worker">{t('Workers')}</option>
+                                    <option value="Doctor">{t('Doctors')}</option>
+                                    <option value="Engineer">{t('Engineers')}</option>
+                                </select>
                             </div>
                             <div>
                                 <label className="block text-slate-700 font-bold mb-2">{t('JobType')}</label>
