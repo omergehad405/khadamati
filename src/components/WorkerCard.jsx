@@ -9,7 +9,7 @@ const WorkerCard = ({ worker }) => {
         <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full border border-slate-100">
             <div className="relative h-[280px] w-full overflow-hidden">
                 <img
-                    src={worker.images && worker.images.length > 0 ? `http://localhost:5000${worker.images[0]}` : 'https://placehold.co/400x300?text=No+Photo'}
+                    src={worker.images && worker.images.length > 0 ? `https://khadamati-backend-mifb.onrender.com${worker.images[0]}` : 'https://placehold.co/400x300?text=No+Photo'}
                     alt={worker.name}
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />

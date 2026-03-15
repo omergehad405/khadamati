@@ -12,7 +12,7 @@ const WorkerProfile = () => {
     useEffect(() => {
         const fetchWorker = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/workers/${id}`);
+                const res = await axios.get(`https://khadamati-backend-mifb.onrender.com/api/workers/${id}`);
                 setWorker(res.data.data.worker);
             } catch (err) {
                 setError(err.response?.data?.message || 'Error fetching profile');
@@ -56,7 +56,7 @@ const WorkerProfile = () => {
                     <div className="flex flex-col md:flex-row items-center md:items-end gap-6 w-full text-center md:text-left">
                         <div className="w-48 h-48 bg-white rounded-full p-2 shadow-2xl relative">
                             <img
-                                src={worker.images?.length > 0 ? `http://localhost:5000${worker.images[0]}` : "https://placehold.co/400x300?text=Profile"}
+                                src={worker.images?.length > 0 ? `https://khadamati-backend-mifb.onrender.com${worker.images[0]}` : "https://placehold.co/400x300?text=Profile"}
                                 alt={worker.name}
                                 className="w-full h-full object-cover rounded-full"
                             />
@@ -176,7 +176,7 @@ const WorkerProfile = () => {
                             {worker.images.slice(1).map((img, index) => (
                                 <div key={index} className="group relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100">
                                     <img
-                                        src={`http://localhost:5000${img}`}
+                                        src={`https://khadamati-backend-mifb.onrender.com${img}`}
                                         alt={`Work preview ${index + 1}`}
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />

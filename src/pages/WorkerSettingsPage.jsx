@@ -160,7 +160,7 @@ const WorkerSettingsPage = () => {
                     <section className="flex flex-col sm:flex-row items-center gap-8 bg-slate-50 p-6 rounded-2xl border border-slate-100">
                         <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden shrink-0 bg-slate-200">
                             <img
-                                src={worker.images?.length > 0 ? `http://localhost:5000${worker.images[0]}` : "https://placehold.co/400x300?text=Profile"}
+                                src={worker.images?.length > 0 ? `https://khadamati-backend-mifb.onrender.com${worker.images[0]}` : "https://placehold.co/400x300?text=Profile"}
                                 alt="Profile"
                                 className="w-full h-full object-cover"
                             />
@@ -290,7 +290,7 @@ const WorkerSettingsPage = () => {
                             {worker.images?.slice(1).map((img, index) => (
                                 <div key={index} className="relative group aspect-square rounded-2xl overflow-hidden border border-slate-100 shadow-sm animate-fadeIn">
                                     <img
-                                        src={`http://localhost:5000${img}`}
+                                        src={`https://khadamati-backend-mifb.onrender.com${img}`}
                                         alt={`Work ${index + 1}`}
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                     />

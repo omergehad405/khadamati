@@ -24,7 +24,7 @@ const ReviewSection = ({ worker, onReviewAdded }) => {
 
         try {
             const config = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
-            const res = await axios.post(`http://localhost:5000/api/workers/${worker._id}/reviews`, formData, config);
+            const res = await axios.post(`https://khadamati-backend-mifb.onrender.com/api/workers/${worker._id}/reviews`, formData, config);
             setMessage({ type: 'success', text: 'Review added successfully!' });
             setFormData({ reviewerName: '', reviewerEmail: '', rating: 5, comment: '' });
             if (onReviewAdded) onReviewAdded(res.data.data.worker);
@@ -127,8 +127,8 @@ const ReviewSection = ({ worker, onReviewAdded }) => {
 
                         {message.text && (
                             <div className={`p-5 rounded-2xl text-xs font-black uppercase tracking-widest animate-fade-in flex items-center gap-3 ${message.type === 'success'
-                                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
-                                    : 'bg-red-50 text-red-700 border border-red-100'
+                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
+                                : 'bg-red-50 text-red-700 border border-red-100'
                                 }`}>
                                 <div className={`w-2 h-2 rounded-full ${message.type === 'success' ? 'bg-emerald-500' : 'bg-red-500 animate-pulse'}`}></div>
                                 {message.text}

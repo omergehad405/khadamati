@@ -19,7 +19,7 @@ const SearchPage = () => {
         setLoading(true);
         setError(null);
         try {
-            const res = await axios.get(`http://localhost:5000/api/workers/search/filter?jobType=${jobType}&location=${location}`);
+            const res = await axios.get(`https://khadamati-backend-mifb.onrender.com/api/workers/search/filter?jobType=${jobType}&location=${location}`);
             setWorkers(res.data.data.workers);
         } catch (err) {
             setError(err.response?.data?.message || 'An error occurred fetching workers.');

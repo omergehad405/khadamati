@@ -22,7 +22,7 @@ const CategoriesPage = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/workers/categories');
+                const res = await axios.get('https://khadamati-backend-mifb.onrender.com/api/workers/categories');
                 setCategories(res.data.data.categories);
             } catch (err) {
                 console.error('Error fetching categories:', err);

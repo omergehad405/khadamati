@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
 
         try {
             const endpoint = role === 'worker' ? 'workers/auth/me' : 'users/auth/me';
-            const res = await axios.get(`http://localhost:5000/api/${endpoint}`, {
+            const res = await axios.get(`https://khadamati-backend-mifb.onrender.com/api/${endpoint}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = role === 'worker' ? res.data.data.worker : res.data.data.user;
@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
 
     const login = async (email, password, loginRole = 'user') => {
         const endpoint = loginRole === 'worker' ? 'workers/auth/login' : 'users/auth/login';
-        const res = await axios.post(`http://localhost:5000/api/${endpoint}`, { email, password });
+        const res = await axios.post(`https://khadamati-backend-mifb.onrender.com/api/${endpoint}`, { email, password });
 
         const { token: newToken, id, worker, user: userData } = res.data.data;
 
@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
 
     const register = async (formData, registerRole = 'user') => {
         const endpoint = registerRole === 'worker' ? 'workers/auth/register' : 'users/auth/register';
-        const res = await axios.post(`http://localhost:5000/api/${endpoint}`, formData);
+        const res = await axios.post(`https://khadamati-backend-mifb.onrender.com/api/${endpoint}`, formData);
 
         const { token: newToken, id, worker, user: userData } = res.data.data;
 
@@ -86,7 +86,7 @@ const AuthProvider = ({ children }) => {
 
     const updateProfile = async (id, updatedData) => {
         if (role !== 'worker') return;
-        const res = await axios.put(`http://localhost:5000/api/workers/${id}`, updatedData, {
+        const res = await axios.put(`https://khadamati-backend-mifb.onrender.com/api/workers/${id}`, updatedData, {
             headers: { Authorization: `Bearer ${token}` }
         });
         const workerData = res.data.data.worker;
@@ -96,7 +96,7 @@ const AuthProvider = ({ children }) => {
 
     const uploadImage = async (id, formData) => {
         if (role !== 'worker') return;
-        const res = await axios.put(`http://localhost:5000/api/workers/${id}/photo`, formData, {
+        const res = await axios.put(`https://khadamati-backend-mifb.onrender.com/api/workers/${id}/photo`, formData, {
             headers: { Authorization: `Bearer ${token}` }
         });
         setUser(prev => ({ ...prev, images: res.data.data.images }));
@@ -105,7 +105,7 @@ const AuthProvider = ({ children }) => {
 
     const addToGallery = async (id, formData) => {
         if (role !== 'worker') return;
-        const res = await axios.post(`http://localhost:5000/api/workers/${id}/gallery`, formData, {
+        const res = await axios.post(`https://khadamati-backend-mifb.onrender.com/api/workers/${id}/gallery`, formData, {
             headers: { Authorization: `Bearer ${token}` }
         });
         setUser(prev => ({ ...prev, images: res.data.data.images }));
@@ -114,7 +114,7 @@ const AuthProvider = ({ children }) => {
 
     const removeFromGallery = async (id, imagePath) => {
         if (role !== 'worker') return;
-        const res = await axios.delete(`http://localhost:5000/api/workers/${id}/gallery`, {
+        const res = await axios.delete(`https://khadamati-backend-mifb.onrender.com/api/workers/${id}/gallery`, {
             headers: { Authorization: `Bearer ${token}` },
             data: { imagePath }
         });
