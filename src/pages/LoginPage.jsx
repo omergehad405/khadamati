@@ -41,13 +41,13 @@ const LoginPage = () => {
                     onClick={() => setRole('user')}
                     className={`flex-1 py-3 rounded-xl font-bold transition-all ${role === 'user' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400'}`}
                 >
-                    User
+                    {t('User')}
                 </button>
                 <button
                     onClick={() => setRole('worker')}
                     className={`flex-1 py-3 rounded-xl font-bold transition-all ${role === 'worker' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400'}`}
                 >
-                    Worker
+                    {t('Worker')}
                 </button>
             </div>
 
@@ -87,7 +87,7 @@ const LoginPage = () => {
             </form>
 
             <p className="mt-8 text-center text-slate-600 font-bold text-sm">
-                {t('DontHaveAccount')} <Link to="/register" className="text-teal-600 font-black hover:underline ml-1">REGISTER NOW</Link>
+                {t('DontHaveAccount')} <Link to="/register" className="text-teal-600 font-black hover:underline ml-1">{t('Register')}</Link>
             </p>
         </div>
     );

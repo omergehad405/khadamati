@@ -33,7 +33,7 @@ const ContactUs = () => {
                 </h1>
                 <div className="w-24 h-2 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full mb-8"></div>
                 <p className="text-xl text-slate-600 max-w-2xl mx-auto font-medium">
-                    Have questions? We're here to help you connect with the right professionals.
+                    {t('ContactSubtitle')}
                 </p>
             </div>
 
@@ -52,20 +52,20 @@ const ContactUs = () => {
                 <div className="p-12 md:p-20 bg-slate-900 text-white">
                     <h2 className="text-4xl font-black mb-8">{t('ContactInfo')}</h2>
                     <p className="text-slate-400 text-lg mb-12">
-                        Fill out the form and our team will get back to you within 24 hours. We love hearing from our community!
+                        {t('ContactFormDesc')}
                     </p>
                     <div className="space-y-6">
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-xl">🕒</div>
                             <div>
-                                <h4 className="font-bold">Working Hours</h4>
-                                <p className="text-slate-400 text-sm">Sun - Thu: 9:00 AM - 6:00 PM</p>
+                                <h4 className="font-bold">{t('WorkingHours')}</h4>
+                                <p className="text-slate-400 text-sm">{t('WorkingHoursDays')}</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-xl">🌐</div>
                             <div>
-                                <h4 className="font-bold">Follow Us</h4>
+                                <h4 className="font-bold">{t('FollowUs')}</h4>
                                 <p className="text-slate-400 text-sm">@KhadamatiPlatform</p>
                             </div>
                         </div>
@@ -74,15 +74,15 @@ const ContactUs = () => {
                 <div className="p-12 md:p-20">
                     <form className="space-y-6">
                         <div>
-                            <label className="block text-slate-700 font-bold mb-2">Subject</label>
-                            <input type="text" className="w-full px-6 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="How can we help?" />
+                            <label className="block text-slate-700 font-bold mb-2">{t('Subject')}</label>
+                            <input type="text" className="w-full px-6 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder={t('SubjectPlaceholder')} />
                         </div>
                         <div>
-                            <label className="block text-slate-700 font-bold mb-2">Message</label>
-                            <textarea rows="4" className="w-full px-6 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Tell us more..."></textarea>
+                            <label className="block text-slate-700 font-bold mb-2">{t('Message')}</label>
+                            <textarea rows="4" className="w-full px-6 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder={t('MessagePlaceholder')}></textarea>
                         </div>
                         <button type="button" className="w-full py-5 rounded-2xl bg-teal-600 text-white font-black text-xl shadow-lg hover:bg-teal-700 transition-all transform active:scale-95 uppercase tracking-widest">
-                            Send Message
+                            {t('SendMessage')}
                         </button>
                     </form>
                 </div>

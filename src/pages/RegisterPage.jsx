@@ -70,13 +70,13 @@ const RegisterPage = () => {
                         onClick={() => setRole('user')}
                         className={`flex-1 py-3 rounded-xl font-bold transition-all ${role === 'user' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400'}`}
                     >
-                        User
+                        {t('User')}
                     </button>
                     <button
                         onClick={() => setRole('worker')}
                         className={`flex-1 py-3 rounded-xl font-bold transition-all ${role === 'worker' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400'}`}
                     >
-                        Worker
+                        {t('Worker')}
                     </button>
                 </div>
             </div>
@@ -105,10 +105,10 @@ const RegisterPage = () => {
                                     <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2-2v12a2 2 0 002 2z"></path></svg>
                                 </div>
                                 <label className="cursor-pointer text-emerald-600 font-bold hover:underline">
-                                    Upload Profile Picture
+                                    {t('UploadProfilePicture')}
                                     <input type="file" className="hidden" accept="image/jpeg, image/png, image/webp" onChange={handleImageChange} />
                                 </label>
-                                <p className="text-slate-500 text-sm mt-1">Optional. JPEG, PNG under 20MB.</p>
+                                <p className="text-slate-500 text-sm mt-1">{t('Optional')}. JPEG, PNG {t('ar') === 'ar' ? 'أقل من 20 ميجابايت' : 'under 20MB'}.</p>
                             </div>
                         )}
                     </div>
@@ -191,7 +191,7 @@ const RegisterPage = () => {
                         disabled={loading}
                         className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-xl shadow-lg transition-all transform active:scale-95 disabled:bg-emerald-300 text-lg uppercase tracking-widest"
                     >
-                        {loading ? '...' : (role === 'worker' ? t('RegisterAsWorker') : 'Register as User')}
+                        {loading ? '...' : (role === 'worker' ? t('RegisterAsWorker') : t('RegisterAsUser'))}
                     </button>
                 </div>
             </form>

@@ -36,8 +36,8 @@ const AboutUs = () => {
                             <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                                 <span className="text-4xl">🚀</span>
                             </div>
-                            <h3 className="text-2xl font-black text-teal-800">Our Vision</h3>
-                            <p className="text-teal-700 font-medium mt-2">To be the #1 destination for experts in Egypt.</p>
+                            <h3 className="text-2xl font-black text-teal-800">{t('OurVision')}</h3>
+                            <p className="text-teal-700 font-medium mt-2">{t('VisionDesc')}</p>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@ const AboutUs = () => {
             <div className="bg-slate-900 rounded-[4rem] p-12 md:p-20 text-white mb-32 relative overflow-hidden">
                 <div className="relative z-10 grid md:grid-cols-2 gap-16 items-center">
                     <div>
-                        <span className="inline-block px-4 py-1 rounded-full bg-teal-500 text-slate-900 font-black text-sm uppercase tracking-widest mb-6">Audience</span>
+                        <span className="inline-block px-4 py-1 rounded-full bg-teal-500 text-slate-900 font-black text-sm uppercase tracking-widest mb-6">{t('Audience')}</span>
                         <h2 className="text-4xl font-black mb-8 leading-tight">
                             {t('AboutTarget')}
                         </h2>
@@ -57,22 +57,22 @@ const AboutUs = () => {
                         <div className="grid grid-cols-2 gap-6">
                             <div className="p-6 rounded-3xl bg-white/5 border border-white/10">
                                 <h4 className="text-teal-400 font-black text-2xl mb-2">10k+</h4>
-                                <p className="text-slate-400 text-sm">Active Users</p>
+                                <p className="text-slate-400 text-sm">{t('ActiveUsers')}</p>
                             </div>
                             <div className="p-6 rounded-3xl bg-white/5 border border-white/10">
                                 <h4 className="text-emerald-400 font-black text-2xl mb-2">500+</h4>
-                                <p className="text-slate-400 text-sm">Professionals</p>
+                                <p className="text-slate-400 text-sm">{t('StatsProfessionals')}</p>
                             </div>
                         </div>
                     </div>
                     <div className="space-y-6">
                         <div className="p-8 rounded-[2.5rem] bg-white text-slate-900 shadow-xl transform hover:-rotate-2 transition-transform">
-                            <p className="text-lg font-bold italic">"Khadamati changed the way I find help. It's fast, reliable, and actually works!"</p>
-                            <p className="mt-4 font-black">- Ahmed S., Cairo</p>
+                            <p className="text-lg font-bold italic">"{t('AboutContent2')}"</p>
+                            <p className="mt-4 font-black">- {t('ar') === 'ar' ? 'أحمد س.، القاهرة' : 'Ahmed S., Cairo'}</p>
                         </div>
                         <div className="p-8 rounded-[2.5rem] bg-teal-500 text-slate-900 shadow-xl transform translate-x-4 md:translate-x-12 hover:rotate-2 transition-transform">
-                            <p className="text-lg font-bold italic">"As an engineer, this platform gave me exposure I never thought possible."</p>
-                            <p className="mt-4 font-black">- Sarah M., Giza</p>
+                            <p className="text-lg font-bold italic">"{t('AboutContent1')}"</p>
+                            <p className="mt-4 font-black">- {t('ar') === 'ar' ? 'سارة م.، الجيزة' : 'Sarah M., Giza'}</p>
                         </div>
                     </div>
                 </div>
@@ -83,14 +83,14 @@ const AboutUs = () => {
 
             {/* Video Section */}
             <div className="text-center mb-20">
-                <h2 className="text-4xl font-black text-slate-900 mb-8">See Us In Action</h2>
+                <h2 className="text-4xl font-black text-slate-900 mb-8">{t('SeeInAction')}</h2>
                 <div className="max-w-4xl mx-auto aspect-video rounded-[3rem] bg-slate-200 shadow-inner flex items-center justify-center border-8 border-white relative overflow-hidden group cursor-pointer">
                     <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1287&auto=format&fit=crop" alt="Video Placeholder" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" />
                     <div className="relative z-10 w-24 h-24 bg-teal-500 text-white rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
                         <svg className="w-10 h-10 fill-current ml-2" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
                     <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors"></div>
-                    <p className="absolute bottom-10 left-0 right-0 text-white font-black text-xl drop-shadow-lg">Video Coming Soon!</p>
+                    <p className="absolute bottom-10 left-0 right-0 text-white font-black text-xl drop-shadow-lg">{t('ComingSoon')}</p>
                 </div>
             </div>
         </div>

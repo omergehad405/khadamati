@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { IMAGE_BASE_URL } from '../api/config';
 
 const WorkerCard = ({ worker }) => {
     const { t } = useTranslation();
@@ -9,7 +10,7 @@ const WorkerCard = ({ worker }) => {
         <div className="bg-white rounded-[2.5rem] shadow-sm overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 flex flex-col h-full border border-slate-100 group">
             <div className="relative h-[240px] w-full overflow-hidden">
                 <img
-                    src={worker.images && worker.images.length > 0 ? `https://khadamati-backend-mifb.onrender.com${worker.images[0]}` : 'https://placehold.co/400x300?text=No+Photo'}
+                    src={worker.images && worker.images.length > 0 ? `${IMAGE_BASE_URL}${worker.images[0]}` : 'https://placehold.co/400x300?text=No+Photo'}
                     alt={worker.name}
                     className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                 />
@@ -38,7 +39,7 @@ const WorkerCard = ({ worker }) => {
                     </span>
                 </div>
 
-                <p className="text-slate-500 text-sm mb-6 line-clamp-3 font-medium leading-relaxed italic">"{worker.description || 'Professional service provider.'}"</p>
+                <p className="text-slate-500 text-sm mb-6 line-clamp-3 font-medium leading-relaxed italic">"{worker.description || t('VerifiedService')}"</p>
 
                 <div className="mt-auto space-y-3 mb-8 text-sm text-slate-600 font-bold">
                     <div className="flex items-center gap-3">
@@ -51,7 +52,7 @@ const WorkerCard = ({ worker }) => {
                         <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"></path></svg>
                         </div>
-                        {worker.experienceYears} Years Experience
+                        {worker.experienceYears} {t('YearsExperience')}
                     </div>
                 </div>
 
@@ -59,7 +60,7 @@ const WorkerCard = ({ worker }) => {
                     to={`/worker/${worker._id}`}
                     className="block w-full text-center bg-slate-900 group-hover:bg-teal-500 text-white group-hover:text-slate-900 font-black py-4 px-6 rounded-2xl transition-all duration-300 shadow-xl shadow-slate-200 hover:shadow-teal-100 uppercase tracking-widest text-sm"
                 >
-                    {t('ViewProfile') || 'View Profile'}
+                    {t('ViewProfile')}
                 </Link>
             </div>
         </div>

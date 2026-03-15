@@ -15,7 +15,7 @@ const Hero = () => {
                 <div className="flex flex-col lg:flex-row items-center gap-16">
                     <div className="lg:w-1/2 text-center lg:text-left space-y-10 animate-slideUp">
                         <div className="inline-block px-6 py-2 rounded-full bg-white shadow-sm border border-slate-100 text-teal-600 font-black uppercase tracking-widest text-sm">
-                            ✨ Your Trust, Our Priority
+                            {t('TrustPriority')}
                         </div>
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 leading-[1.1] tracking-tighter">
                             {t('HeroTitle')}
@@ -54,8 +54,8 @@ const Hero = () => {
                                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                                         </div>
                                         <div>
-                                            <p className="text-slate-900 font-black">Verified Service</p>
-                                            <p className="text-slate-500 text-sm font-bold leading-none">Trusted by 10k+ users</p>
+                                            <p className="text-slate-900 font-black">{t('VerifiedService')}</p>
+                                            <p className="text-slate-500 text-sm font-bold leading-none">{t('TrustedUsers')}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@ const Hero = () => {
                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-white p-4 rounded-3xl shadow-2xl border border-slate-50 hidden md:flex flex-col items-center justify-center animate-float" style={{ animationDelay: '1s' }}>
                             <span className="text-4xl mb-2">⭐</span>
                             <p className="font-black text-slate-900 tracking-tight">4.9/5</p>
-                            <p className="text-xs text-slate-400 font-bold uppercase">Average Rating</p>
+                            <p className="text-xs text-slate-400 font-bold uppercase">{t('AverageRating')}</p>
                         </div>
                     </div>
                 </div>

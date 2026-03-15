@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import WorkerCard from '../components/WorkerCard';
+import { API_BASE_URL } from '../api/config';
 
 const SearchPage = () => {
     const { t } = useTranslation();
@@ -29,7 +30,7 @@ const SearchPage = () => {
         setLoading(true);
         setError(null);
         try {
-            const res = await axios.get(`https://khadamati-backend-mifb.onrender.com/api/workers/search/filter?jobType=${jobType}&location=${location}&category=${category}`);
+            const res = await axios.get(`${API_BASE_URL}/workers/search/filter?jobType=${jobType}&location=${location}&category=${category}`);
             setWorkers(res.data.data.workers);
         } catch (err) {
             setError(err.response?.data?.message || 'An error occurred fetching workers.');
@@ -69,7 +70,7 @@ const SearchPage = () => {
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
                         >
-                            <option value="">{t('All') || 'All'}</option>
+                            <option value="">{t('All')}</option>
                             <option value="Worker">{t('Workers')}</option>
                             <option value="Doctor">{t('Doctors')}</option>
                             <option value="Engineer">{t('Engineers')}</option>
@@ -79,17 +80,17 @@ const SearchPage = () => {
                         <label className="block text-slate-700 font-bold mb-2">{t('SubCategory')}</label>
                         <input
                             type="text"
-                            placeholder={t('SearchPlaceholder') || "e.g. Plumber, njar..."}
+                            placeholder={t('SearchPlaceholder')}
                             className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:outline-none focus:ring-0 focus:border-emerald-500 transition bg-slate-50 font-medium"
                             value={jobType}
                             onChange={(e) => setJobType(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-slate-700 font-bold mb-2">Location</label>
+                        <label className="block text-slate-700 font-bold mb-2">{t('Location')}</label>
                         <input
                             type="text"
-                            placeholder="e.g. Cairo, Nasr City"
+                            placeholder={t('Location') + "..."}
                             className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:outline-none focus:ring-0 focus:border-emerald-500 transition bg-slate-50 font-medium"
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
@@ -101,7 +102,7 @@ const SearchPage = () => {
                             className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-4 rounded-xl shadow-lg transition-transform transform active:scale-95 disabled:bg-emerald-300"
                             disabled={loading}
                         >
-                            {loading ? 'Searching...' : 'Search'}
+                            {loading ? t('Searching') : t('Search')}
                         </button>
                     </div>
                 </form>
@@ -117,7 +118,7 @@ const SearchPage = () => {
                         ))
                     ) : (
                         !loading && <div className="col-span-3 text-center text-slate-500 py-16 text-xl font-medium border-2 border-dashed border-slate-200 rounded-3xl bg-slate-50 mt-4">
-                            No workers found matching your criteria.
+                            {t('NoWorkersFound')}
                         </div>
                     )}
                 </div>

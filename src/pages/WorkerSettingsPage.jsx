@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { IMAGE_BASE_URL } from '../api/config';
 
 const WorkerSettingsPage = () => {
     const { t } = useTranslation();
@@ -71,9 +72,9 @@ const WorkerSettingsPage = () => {
                 services: formData.services.map(s => s.trim()).filter(s => s)
             };
             await updateProfile(worker._id, formattedData);
-            setSuccessMsg('Profile updated successfully!');
+            setSuccessMsg(t('ProfileUpdated'));
         } catch (err) {
-            setErrorMsg(err.response?.data?.message || 'Failed to update profile');
+            setErrorMsg(err.response?.data?.message || t('UpdateProfileError'));
         } finally {
             setSaving(false);
         }
@@ -91,7 +92,7 @@ const WorkerSettingsPage = () => {
         setSuccessMsg('');
         try {
             await uploadImage(worker._id, formData);
-            setSuccessMsg('Profile picture updated successfully!');
+            setSuccessMsg(t('ProfilePictureUpdated'));
         } catch (err) {
             setErrorMsg(err.response?.data?.message || 'Failed to upload image. Make sure it is less than 20MB.');
         } finally {
@@ -111,7 +112,7 @@ const WorkerSettingsPage = () => {
         setSuccessMsg('');
         try {
             await addToGallery(worker._id, formData);
-            setSuccessMsg('Photo added to gallery!');
+            setSuccessMsg(t('PhotoAddedGallery'));
         } catch (err) {
             setErrorMsg(err.response?.data?.message || 'Failed to upload photo. Make sure it is less than 20MB.');
         } finally {
@@ -120,13 +121,13 @@ const WorkerSettingsPage = () => {
     };
 
     const handleRemoveGalleryPhoto = async (imagePath) => {
-        if (!window.confirm('Are you sure you want to remove this photo?')) return;
+        if (!window.confirm(t('ConfirmRemovePhoto'))) return;
 
         setErrorMsg('');
         setSuccessMsg('');
         try {
             await removeFromGallery(worker._id, imagePath);
-            setSuccessMsg('Photo removed from gallery!');
+            setSuccessMsg(t('PhotoRemovedGallery'));
         } catch (err) {
             setErrorMsg(err.response?.data?.message || 'Failed to remove photo.');
         }
@@ -161,18 +162,18 @@ const WorkerSettingsPage = () => {
                     <section className="flex flex-col sm:flex-row items-center gap-8 bg-slate-50 p-6 rounded-2xl border border-slate-100">
                         <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden shrink-0 bg-slate-200">
                             <img
-                                src={worker.images?.length > 0 ? `https://khadamati-backend-mifb.onrender.com${worker.images[0]}` : "https://placehold.co/400x300?text=Profile"}
+                                src={worker.images?.length > 0 ? `${IMAGE_BASE_URL}${worker.images[0]}` : "https://placehold.co/400x300?text=Profile"}
                                 alt="Profile"
                                 className="w-full h-full object-cover"
                             />
                         </div>
                         <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                            <h3 className="text-xl font-bold text-slate-800 mb-2">Profile Picture</h3>
+                            <h3 className="text-xl font-bold text-slate-800 mb-2">{t('ProfilePicture')}</h3>
                             <p className="text-slate-500 text-sm mb-4 font-medium max-w-sm">
-                                Upload a clear photo of yourself so users know who they are hiring. JPEG, PNG, or WebP under 20MB.
+                                {t('ProfilePictureDesc')}
                             </p>
                             <label className={`cursor-pointer bg-emerald-100 text-emerald-800 hover:bg-emerald-200 px-6 py-2.5 rounded-xl font-bold transition flex items-center gap-2 ${uploadingImage ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                {uploadingImage ? 'Uploading...' : 'Change Picture'}
+                                {uploadingImage ? t('Uploading') : t('ChangePicture')}
                                 <input
                                     type="file"
                                     className="hidden"
@@ -186,14 +187,14 @@ const WorkerSettingsPage = () => {
 
                     {/* Basic Info */}
                     <section>
-                        <h3 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Basic Info</h3>
+                        <h3 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">{t('BasicInfo')}</h3>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-slate-700 font-bold mb-2">{t('Name')}</label>
                                 <input type="text" name="name" className="w-full px-5 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium" value={formData.name} onChange={onChange} />
                             </div>
                             <div>
-                                <label className="block text-slate-700 font-bold mb-2">{t('Email')} (Read Only)</label>
+                                <label className="block text-slate-700 font-bold mb-2">{t('Email')} ({t('ReadOnly')})</label>
                                 <input type="email" readOnly className="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-100 font-medium text-slate-500 cursor-not-allowed" value={worker.email} />
                             </div>
                             <div>
@@ -220,29 +221,29 @@ const WorkerSettingsPage = () => {
                                 <input type="number" name="experienceYears" className="w-full px-5 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium" value={formData.experienceYears} onChange={onChange} />
                             </div>
                             <div className="md:col-span-2">
-                                <label className="block text-slate-700 font-bold mb-2">Description</label>
+                                <label className="block text-slate-700 font-bold mb-2">{t('Description')}</label>
                                 <textarea name="description" rows="4" className="w-full px-5 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium" value={formData.description} onChange={onChange}></textarea>
                             </div>
                             <div className="md:col-span-2">
                                 <label className="flex items-center justify-between text-slate-700 font-bold mb-4">
-                                    <span>Services</span>
+                                    <span>{t('ServicesOffered')}</span>
                                     <button
                                         type="button"
                                         onClick={handleAddService}
                                         className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 px-4 py-2 rounded-xl text-sm transition font-bold"
                                     >
-                                        + Add Service
+                                        + {t('AddService')}
                                     </button>
                                 </label>
                                 {formData.services.length === 0 && (
-                                    <p className="text-slate-500 text-sm mb-4">No services added yet. Click "+ Add Service" to add one.</p>
+                                    <p className="text-slate-500 text-sm mb-4">{t('NoServicesAdded')}</p>
                                 )}
                                 <div className="space-y-3">
                                     {formData.services.map((service, index) => (
                                         <div key={index} className="flex gap-3 animate-fadeIn">
                                             <input
                                                 type="text"
-                                                placeholder="e.g. Pipe fitting, Drain cleaning"
+                                                placeholder={t('ServicesPlaceholder')}
                                                 className="flex-grow px-5 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50 font-medium"
                                                 value={service}
                                                 onChange={(e) => handleServiceChange(index, e.target.value)}
@@ -264,7 +265,7 @@ const WorkerSettingsPage = () => {
 
                     {/* Location Info */}
                     <section>
-                        <h3 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">Contact & Location</h3>
+                        <h3 className="text-xl font-bold text-slate-800 mb-4 border-b pb-2">{t('ContactLocation')}</h3>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-slate-700 font-bold mb-2">{t('Phone')}</label>
@@ -288,9 +289,9 @@ const WorkerSettingsPage = () => {
                     {/* Work Gallery */}
                     <section>
                         <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center justify-between border-b pb-2">
-                            <span>Work Gallery</span>
+                            <span>{t('WorkGallery')}</span>
                             <label className={`cursor-pointer bg-emerald-100 text-emerald-800 hover:bg-emerald-200 px-4 py-2 rounded-xl text-sm transition font-bold ${uploadingGallery ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                {uploadingGallery ? 'Adding...' : '+ Add Work Photo'}
+                                {uploadingGallery ? t('Adding') : '+ ' + t('AddWorkPhoto')}
                                 <input
                                     type="file"
                                     className="hidden"
@@ -306,7 +307,7 @@ const WorkerSettingsPage = () => {
                             {worker.images?.slice(1).map((img, index) => (
                                 <div key={index} className="relative group aspect-square rounded-2xl overflow-hidden border border-slate-100 shadow-sm animate-fadeIn">
                                     <img
-                                        src={`https://khadamati-backend-mifb.onrender.com${img}`}
+                                        src={`${IMAGE_BASE_URL}${img}`}
                                         alt={`Work ${index + 1}`}
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
@@ -323,7 +324,7 @@ const WorkerSettingsPage = () => {
 
                             {(!worker.images || worker.images.length <= 1) && !uploadingGallery && (
                                 <div className="col-span-full py-10 text-center bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl">
-                                    <p className="text-slate-500 font-medium">Your work gallery is empty. Upload photos of your projects!</p>
+                                    <p className="text-slate-500 font-medium">{t('GalleryEmpty')}</p>
                                 </div>
                             )}
                         </div>
@@ -335,7 +336,7 @@ const WorkerSettingsPage = () => {
                             disabled={saving}
                             className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-4 px-10 rounded-xl shadow-lg transition-transform transform active:scale-95 disabled:bg-teal-300 text-lg"
                         >
-                            {saving ? 'Saving...' : 'Update Profile'}
+                            {saving ? t('Saving') : t('UpdateProfile')}
                         </button>
                     </div>
                 </form>
