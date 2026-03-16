@@ -1,14 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 import { API_BASE_URL, IMAGE_BASE_URL } from '../api/config';
 import ReviewSection from '../components/profile/ReviewSection';
 
 const WorkerProfile = () => {
+    const { t } = useTranslation();
     const { id } = useParams();
     const [worker, setWorker] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.1 }
+        }
+    };
+
+    const sectionVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    };
 
     useEffect(() => {
         const fetchWorker = async () => {
@@ -44,16 +60,30 @@ const WorkerProfile = () => {
     if (!worker) return null;
 
     return (
-        <div className="max-w-4xl mx-auto bg-white rounded-[2rem] shadow-xl overflow-hidden mt-8 border border-slate-100 animate-fadeIn relative">
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-4xl mx-auto bg-white rounded-[2rem] shadow-xl overflow-hidden mt-8 border border-slate-100 relative"
+        >
             <div className="absolute top-0 right-0 w-64 h-64 bg-teal-50 rounded-full blur-3xl opacity-50 -mr-20 -mt-20"></div>
 
             {/* Header Banner */}
-            <div className="h-56 bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-500 relative z-10 overflow-hidden">
+            <motion.div 
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.8, ease: "circOut" }}
+                className="h-56 bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-500 relative z-10 overflow-hidden origin-left"
+            >
                 <div className="absolute inset-0 bg-black/10"></div>
-            </div>
+            </motion.div>
 
             <div className="px-8 md:px-12 pb-12 relative z-20">
-                <div className="flex flex-col md:flex-row items-center md:items-end justify-between -mt-24 mb-10">
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="flex flex-col md:flex-row items-center md:items-end justify-between -mt-24 mb-10"
+                >
                     <div className="flex flex-col md:flex-row items-center md:items-end gap-6 w-full text-center md:text-left">
                         <div className="w-48 h-48 bg-white rounded-full p-2 shadow-2xl relative">
                             <img
@@ -85,7 +115,9 @@ const WorkerProfile = () => {
                     </div>
 
                     <div className="mt-8 md:mt-0 w-full md:w-auto flex justify-center pb-3 shrink-0">
-                        <a
+                        <motion.a
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             href={`https://wa.me/${worker.phone.replace(/[^0-9]/g, '')}`}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -93,13 +125,19 @@ const WorkerProfile = () => {
                         >
                             <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.284l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.768-5.764-5.768zm3.393 8.221c-.146.411-.749.754-1.041.794-.275.04-.543.085-1.558-.309-1.327-.514-2.182-1.854-2.248-1.942-.067-.088-.53-.705-.53-1.347s.334-.981.453-1.114c.12-.133.26-.166.346-.166s.174.004.248.006c.081.002.19-.03.298.228.109.259.373.91.406.974.033.065.054.14.011.228-.044.089-.065.153-.131.23-.065.078-.137.174-.196.234-.067.067-.138.14-.059.275.08.134.353.582.757.942.521.464 1.011.644 1.144.71.134.066.211.054.29-.037.078-.09.336-.39.426-.523.089-.133.178-.111.298-.067s.767.361.9.426c.133.066.222.099.255.155.033.056.033.321-.113.732zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" /></svg>
                             WhatsApp
-                        </a>
+                        </motion.a>
                     </div>
-                </div>
+                </motion.div>
 
-                <div className="grid md:grid-cols-3 gap-10">
+                <motion.div 
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="grid md:grid-cols-3 gap-10"
+                >
                     <div className="md:col-span-2 space-y-10">
-                        <section>
+                        <motion.section variants={sectionVariants}>
                             <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                                 <span className="w-2 h-8 bg-teal-500 rounded-full inline-block"></span>
                                 {t('AboutMe')}
@@ -107,9 +145,9 @@ const WorkerProfile = () => {
                             <p className="text-slate-600 leading-relaxed text-lg font-medium bg-slate-50 p-6 rounded-2xl border border-slate-100">
                                 {worker.description || t('NoWorkPhotos')}
                             </p>
-                        </section>
+                        </motion.section>
 
-                        <section>
+                        <motion.section variants={sectionVariants}>
                             <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
                                 <span className="w-2 h-8 bg-emerald-500 rounded-full inline-block"></span>
                                 {t('ServicesOffered')}
@@ -117,21 +155,24 @@ const WorkerProfile = () => {
                             {worker.services && worker.services.length > 0 ? (
                                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {worker.services.map((svc, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-slate-700 font-bold bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                                        <motion.li 
+                                            whileHover={{ scale: 1.05 }}
+                                            key={i} className="flex items-center gap-3 text-slate-700 font-bold bg-white p-4 rounded-xl shadow-sm border border-slate-100"
+                                        >
                                             <div className="w-8 h-8 rounded-lg bg-emerald-100 flex justify-center items-center text-emerald-600 text-sm">
                                                 ✓
                                             </div>
                                             {svc}
-                                        </li>
+                                        </motion.li>
                                     ))}
                                 </ul>
                             ) : (
                                 <p className="text-slate-500 italic bg-slate-50 p-6 rounded-2xl border border-slate-100 font-medium">{t('NoServicesListed')}</p>
                             )}
-                        </section>
+                        </motion.section>
                     </div>
 
-                    <div className="space-y-6">
+                    <motion.div variants={sectionVariants} className="space-y-6">
                         <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-24 h-24 bg-white opacity-50 rounded-full -mr-10 -mt-10 blur-xl"></div>
                             <h3 className="text-xl font-bold text-slate-900 mb-6">{t('Details')}</h3>
@@ -165,11 +206,16 @@ const WorkerProfile = () => {
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
 
                 {/* Gallery Section */}
-                <div className="mt-12">
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    className="mt-12"
+                >
                     <h3 className="text-3xl font-bold text-slate-900 mb-8 pb-4 border-b border-slate-100 flex items-center gap-3">
                         <span className="w-2 h-8 bg-emerald-500 rounded-full"></span>
                         {t('WorkGallery')}
@@ -178,13 +224,15 @@ const WorkerProfile = () => {
                     {worker.images?.length > 1 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {worker.images.slice(1).map((img, index) => (
-                                <div key={index} className="group relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100">
+                                <motion.div 
+                                    whileHover={{ scale: 1.05, rotate: 1 }}
+                                    key={index} className="group relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100">
                                     <img
                                         src={`${IMAGE_BASE_URL}${img}`}
                                         alt={`Work preview ${index + 1}`}
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                     ) : (
@@ -192,12 +240,12 @@ const WorkerProfile = () => {
                             <p className="text-slate-400 text-lg font-medium">{t('NoWorkPhotos')}</p>
                         </div>
                     )}
-                </div>
+                </motion.div>
 
                 {/* Reviews Section */}
                 <ReviewSection worker={worker} onReviewAdded={handleReviewAdded} />
             </div>
-        </div>
+        </motion.div>
     );
 };
 

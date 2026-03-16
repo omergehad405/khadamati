@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
 
 const LoginPage = () => {
@@ -32,20 +33,35 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-16 bg-white rounded-3xl shadow-xl border border-slate-100 p-8 animate-fadeIn">
+        <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="max-w-md mx-auto mt-16 bg-white rounded-3xl shadow-xl border border-slate-100 p-8"
+        >
             <h2 className="text-3xl font-extrabold text-slate-900 mb-6 text-center">{t('Login')}</h2>
 
             {/* Role Toggle */}
-            <div className="flex bg-slate-100 p-1 rounded-2xl mb-8">
+            <div className="flex bg-slate-100 p-1 rounded-2xl mb-8 relative">
+                <motion.div 
+                    layoutId="activeRole"
+                    className="absolute inset-y-1 bg-white rounded-xl shadow-sm"
+                    initial={false}
+                    animate={{ 
+                        left: role === 'user' ? '4px' : '50%',
+                        right: role === 'user' ? '50%' : '4px'
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
                 <button
                     onClick={() => setRole('user')}
-                    className={`flex-1 py-3 rounded-xl font-bold transition-all ${role === 'user' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400'}`}
+                    className={`flex-1 py-3 rounded-xl font-bold transition-all relative z-10 ${role === 'user' ? 'text-emerald-600' : 'text-slate-400'}`}
                 >
                     {t('User')}
                 </button>
                 <button
                     onClick={() => setRole('worker')}
-                    className={`flex-1 py-3 rounded-xl font-bold transition-all ${role === 'worker' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-400'}`}
+                    className={`flex-1 py-3 rounded-xl font-bold transition-all relative z-10 ${role === 'worker' ? 'text-emerald-600' : 'text-slate-400'}`}
                 >
                     {t('Worker')}
                 </button>
@@ -77,19 +93,21 @@ const LoginPage = () => {
                     />
                 </div>
 
-                <button
+                <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={loading}
                     className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-xl shadow-lg transition-all transform active:scale-95 disabled:bg-emerald-300 uppercase tracking-widest text-sm"
                 >
                     {loading ? '...' : t('Login')}
-                </button>
+                </motion.button>
             </form>
 
             <p className="mt-8 text-center text-slate-600 font-bold text-sm">
                 {t('DontHaveAccount')} <Link to="/register" className="text-teal-600 font-black hover:underline ml-1">{t('Register')}</Link>
             </p>
-        </div>
+        </motion.div>
     );
 };
 

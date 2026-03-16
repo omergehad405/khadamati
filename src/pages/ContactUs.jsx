@@ -1,8 +1,21 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 
 const ContactUs = () => {
     const { t } = useTranslation();
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    };
 
     const contactMethods = [
         {
@@ -26,49 +39,71 @@ const ContactUs = () => {
     ];
 
     return (
-        <div className="max-w-6xl mx-auto py-12 px-4 animate-fadeIn">
-            <div className="text-center mb-20">
-                <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-6">
+        <div className="max-w-6xl mx-auto py-12 px-4 overflow-hidden">
+            <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="text-center mb-20"
+            >
+                <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-black text-slate-900 mb-6">
                     {t('ContactUs')}
-                </h1>
-                <div className="w-24 h-2 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full mb-8"></div>
-                <p className="text-xl text-slate-600 max-w-2xl mx-auto font-medium">
+                </motion.h1>
+                <motion.div variants={itemVariants} className="w-24 h-2 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto rounded-full mb-8"></motion.div>
+                <motion.p variants={itemVariants} className="text-xl text-slate-600 max-w-2xl mx-auto font-medium">
                     {t('ContactSubtitle')}
-                </p>
-            </div>
+                </motion.p>
+            </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+            <motion.div 
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"
+            >
                 {contactMethods.map((method, idx) => (
-                    <div key={idx} className={`p-10 rounded-[3rem] border transition-all hover:shadow-xl flex flex-col items-center text-center ${method.color}`}>
+                    <motion.div 
+                        key={idx} 
+                        variants={itemVariants}
+                        whileHover={{ y: -10 }}
+                        className={`p-10 rounded-[3rem] border transition-all hover:shadow-xl flex flex-col items-center text-center ${method.color}`}
+                    >
                         <div className="text-6xl mb-6 drop-shadow-sm">{method.icon}</div>
                         <h3 className="text-2xl font-black mb-2">{method.title}</h3>
                         <p className="text-lg font-bold opacity-80">{method.value}</p>
-                    </div>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
 
             {/* Quick Contact Form Placeholder */}
-            <div className="bg-white rounded-[4rem] shadow-2xl border border-slate-100 overflow-hidden grid md:grid-cols-2">
+            <motion.div 
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1 }}
+                className="bg-white rounded-[4rem] shadow-2xl border border-slate-100 overflow-hidden grid md:grid-cols-2"
+            >
                 <div className="p-12 md:p-20 bg-slate-900 text-white">
                     <h2 className="text-4xl font-black mb-8">{t('ContactInfo')}</h2>
                     <p className="text-slate-400 text-lg mb-12">
                         {t('ContactFormDesc')}
                     </p>
                     <div className="space-y-6">
-                        <div className="flex items-center gap-4">
+                        <motion.div whileHover={{ x: 10 }} className="flex items-center gap-4 cursor-default">
                             <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-xl">🕒</div>
                             <div>
                                 <h4 className="font-bold">{t('WorkingHours')}</h4>
                                 <p className="text-slate-400 text-sm">{t('WorkingHoursDays')}</p>
                             </div>
-                        </div>
-                        <div className="flex items-center gap-4">
+                        </motion.div>
+                        <motion.div whileHover={{ x: 10 }} className="flex items-center gap-4 cursor-default">
                             <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-xl">🌐</div>
                             <div>
                                 <h4 className="font-bold">{t('FollowUs')}</h4>
                                 <p className="text-slate-400 text-sm">@KhadamatiPlatform</p>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
                 <div className="p-12 md:p-20">
@@ -81,12 +116,17 @@ const ContactUs = () => {
                             <label className="block text-slate-700 font-bold mb-2">{t('Message')}</label>
                             <textarea rows="4" className="w-full px-6 py-4 rounded-2xl border border-slate-200 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder={t('MessagePlaceholder')}></textarea>
                         </div>
-                        <button type="button" className="w-full py-5 rounded-2xl bg-teal-600 text-white font-black text-xl shadow-lg hover:bg-teal-700 transition-all transform active:scale-95 uppercase tracking-widest">
+                        <motion.button 
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            type="button" 
+                            className="w-full py-5 rounded-2xl bg-teal-600 text-white font-black text-xl shadow-lg hover:bg-teal-700 transition-all transform active:scale-95 uppercase tracking-widest"
+                        >
                             {t('SendMessage')}
-                        </button>
+                        </motion.button>
                     </form>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 };

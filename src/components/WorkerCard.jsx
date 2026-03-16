@@ -1,18 +1,23 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 import { IMAGE_BASE_URL } from '../api/config';
 
 const WorkerCard = ({ worker }) => {
     const { t } = useTranslation();
 
     return (
-        <div className="bg-white rounded-[2.5rem] shadow-sm overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 flex flex-col h-full border border-slate-100 group">
+        <motion.div 
+            whileHover={{ y: -10 }}
+            className="bg-white rounded-[2.5rem] shadow-sm overflow-hidden hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-slate-100 group"
+        >
             <div className="relative h-[240px] w-full overflow-hidden">
-                <img
+                <motion.img
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.8 }}
                     src={worker.images && worker.images.length > 0 ? `${IMAGE_BASE_URL}${worker.images[0]}` : 'https://placehold.co/400x300?text=No+Photo'}
                     alt={worker.name}
-                    className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+                    className="w-full h-full object-cover"
                 />
                 <div className="absolute top-4 right-4 animate-fadeIn">
                     <span className="bg-white/90 backdrop-blur-md text-slate-900 text-xs font-black px-4 py-2 rounded-2xl shadow-lg border border-white/20 uppercase tracking-widest">
@@ -56,14 +61,16 @@ const WorkerCard = ({ worker }) => {
                     </div>
                 </div>
 
-                <Link
-                    to={`/worker/${worker._id}`}
-                    className="block w-full text-center bg-slate-900 group-hover:bg-teal-500 text-white group-hover:text-slate-900 font-black py-4 px-6 rounded-2xl transition-all duration-300 shadow-xl shadow-slate-200 hover:shadow-teal-100 uppercase tracking-widest text-sm"
-                >
-                    {t('ViewProfile')}
-                </Link>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Link
+                        to={`/worker/${worker._id}`}
+                        className="block w-full text-center bg-slate-900 group-hover:bg-teal-500 text-white group-hover:text-slate-900 font-black py-4 px-6 rounded-2xl transition-all duration-300 shadow-xl shadow-slate-200 hover:shadow-teal-100 uppercase tracking-widest text-sm"
+                    >
+                        {t('ViewProfile')}
+                    </Link>
+                </motion.div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

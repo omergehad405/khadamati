@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
@@ -22,11 +23,11 @@ const Navbar = () => {
 
     const NavLinks = () => (
         <>
-            <Link onClick={() => setIsMenuOpen(false)} to="/" className="text-lg font-bold hover:text-emerald-200 transition-all">{t('Home')}</Link>
-            <Link onClick={() => setIsMenuOpen(false)} to="/categories" className="text-lg font-bold hover:text-emerald-200 transition-all">{t('Categories')}</Link>
-            <Link onClick={() => setIsMenuOpen(false)} to="/search" className="text-lg font-bold hover:text-emerald-200 transition-all">{t('Find_workers')}</Link>
-            <Link onClick={() => setIsMenuOpen(false)} to="/about" className="text-lg font-bold hover:text-emerald-200 transition-all">{t('AboutUs')}</Link>
-            <Link onClick={() => setIsMenuOpen(false)} to="/contact" className="text-lg font-bold hover:text-emerald-200 transition-all">{t('ContactUs')}</Link>
+            <Link onClick={() => setIsMenuOpen(false)} to="/" className="text-lg font-bold hover:text-teal-400 transition-all hover:-translate-y-0.5 transform">{t('Home')}</Link>
+            <Link onClick={() => setIsMenuOpen(false)} to="/categories" className="text-lg font-bold hover:text-teal-400 transition-all hover:-translate-y-0.5 transform">{t('Categories')}</Link>
+            <Link onClick={() => setIsMenuOpen(false)} to="/search" className="text-lg font-bold hover:text-teal-400 transition-all hover:-translate-y-0.5 transform">{t('Find_workers')}</Link>
+            <Link onClick={() => setIsMenuOpen(false)} to="/about" className="text-lg font-bold hover:text-teal-400 transition-all hover:-translate-y-0.5 transform">{t('AboutUs')}</Link>
+            <Link onClick={() => setIsMenuOpen(false)} to="/contact" className="text-lg font-bold hover:text-teal-400 transition-all hover:-translate-y-0.5 transform">{t('ContactUs')}</Link>
         </>
     );
 
@@ -69,12 +70,14 @@ const Navbar = () => {
                         </div>
                     )}
                     
-                    <button
+                    <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
                         onClick={toggleLanguage}
                         className="w-12 h-12 rounded-2xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all font-black text-sm border border-white/10"
                     >
                         {i18n.language === 'en' ? 'AR' : 'EN'}
-                    </button>
+                    </motion.button>
                 </div>
 
                 {/* Mobile Menu Toggle */}
@@ -99,9 +102,21 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Sidebar */}
-            {isMenuOpen && (
-                <div className="lg:hidden bg-slate-900 border-t border-white/5 animate-fadeIn">
-                    <div className="flex flex-col p-8 gap-6">
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <motion.div 
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 100 }}
+                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                        className="lg:hidden fixed inset-0 z-[60] bg-slate-900 flex flex-col pt-24 px-8 gap-6"
+                    >
+                        <button 
+                            onClick={() => setIsMenuOpen(false)}
+                            className="absolute top-6 right-6 p-2 text-white"
+                        >
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
                         <NavLinks />
                         <hr className="border-white/10" />
                         {isAuthenticated ? (
@@ -118,9 +133,9 @@ const Navbar = () => {
                                 <Link to="/register" onClick={() => setIsMenuOpen(false)} className="w-full text-center py-4 bg-teal-500 text-slate-900 rounded-2xl font-black">{t('Register')}</Link>
                             </div>
                         )}
-                    </div>
-                </div>
-            )}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </nav>
     );
 };
