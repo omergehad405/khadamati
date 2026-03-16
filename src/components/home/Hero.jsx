@@ -82,7 +82,7 @@ const Hero = () => {
                              className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white"
                         >
                             <img
-                                src="https://images.unsplash.com/photo-1581578731548-c64695cc6958?q=80&w=2070&auto=format&fit=crop"
+                                src="./homePage.jpeg"
                                 alt="Professionals"
                                 className="w-full h-auto object-cover"
                             />
