@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 const CategoriesPage = () => {
     const { t } = useTranslation();
+
+    // Scroll to top when the page is mounted
+    useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, []);
 
     const sections = [
         {

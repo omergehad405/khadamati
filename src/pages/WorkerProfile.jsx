@@ -26,6 +26,11 @@ const WorkerProfile = () => {
         visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
     };
 
+    // Scroll to top when the page/component is mounted or id changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [id]);
+
     useEffect(() => {
         const fetchWorker = async () => {
             try {
@@ -60,7 +65,7 @@ const WorkerProfile = () => {
     if (!worker) return null;
 
     return (
-        <motion.div 
+        <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto bg-white rounded-[2rem] shadow-xl overflow-hidden mt-8 border border-slate-100 relative"
@@ -68,7 +73,7 @@ const WorkerProfile = () => {
             <div className="absolute top-0 right-0 w-64 h-64 bg-teal-50 rounded-full blur-3xl opacity-50 -mr-20 -mt-20"></div>
 
             {/* Header Banner */}
-            <motion.div 
+            <motion.div
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.8, ease: "circOut" }}
@@ -78,7 +83,7 @@ const WorkerProfile = () => {
             </motion.div>
 
             <div className="px-8 md:px-12 pb-12 relative z-20">
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
@@ -129,7 +134,7 @@ const WorkerProfile = () => {
                     </div>
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
@@ -155,7 +160,7 @@ const WorkerProfile = () => {
                             {worker.services && worker.services.length > 0 ? (
                                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {worker.services.map((svc, i) => (
-                                        <motion.li 
+                                        <motion.li
                                             whileHover={{ scale: 1.05 }}
                                             key={i} className="flex items-center gap-3 text-slate-700 font-bold bg-white p-4 rounded-xl shadow-sm border border-slate-100"
                                         >
@@ -210,7 +215,7 @@ const WorkerProfile = () => {
                 </motion.div>
 
                 {/* Gallery Section */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -224,7 +229,7 @@ const WorkerProfile = () => {
                     {worker.images?.length > 1 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {worker.images.slice(1).map((img, index) => (
-                                <motion.div 
+                                <motion.div
                                     whileHover={{ scale: 1.05, rotate: 1 }}
                                     key={index} className="group relative aspect-[4/3] rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100">
                                     <img

@@ -20,7 +20,7 @@ const AboutUs = () => {
     return (
         <div className="max-w-6xl mx-auto py-12 px-4 overflow-hidden">
             {/* Hero Section */}
-            <motion.div 
+            <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -37,7 +37,7 @@ const AboutUs = () => {
 
             {/* Vision & Mission */}
             <div className="grid md:grid-cols-2 gap-12 mb-32 items-center">
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -54,7 +54,7 @@ const AboutUs = () => {
                         {t('AboutContent2')}
                     </p>
                 </motion.div>
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -63,7 +63,7 @@ const AboutUs = () => {
                 >
                     <div className="aspect-video rounded-[3rem] bg-gradient-to-br from-teal-100 to-emerald-100 border-4 border-white shadow-2xl flex items-center justify-center overflow-hidden">
                         <div className="text-center p-8">
-                            <motion.div 
+                            <motion.div
                                 animate={{ y: [0, -10, 0] }}
                                 transition={{ duration: 3, repeat: Infinity }}
                                 className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
@@ -118,13 +118,16 @@ const AboutUs = () => {
             {/* Video Section */}
             <div className="text-center mb-20">
                 <h2 className="text-4xl font-black text-slate-900 mb-8">{t('SeeInAction')}</h2>
-                <div className="max-w-4xl mx-auto aspect-video rounded-[3rem] bg-slate-200 shadow-inner flex items-center justify-center border-8 border-white relative overflow-hidden group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1287&auto=format&fit=crop" alt="Video Placeholder" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700" />
-                    <div className="relative z-10 w-24 h-24 bg-teal-500 text-white rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
-                        <svg className="w-10 h-10 fill-current ml-2" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    </div>
-                    <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors"></div>
-                    <p className="absolute bottom-10 left-0 right-0 text-white font-black text-xl drop-shadow-lg">{t('ComingSoon')}</p>
+                <div className="max-w-4xl mx-auto aspect-video rounded-[3rem] bg-slate-200 shadow-inner flex items-center justify-center border-8 border-white relative overflow-hidden group">
+                    <video
+                        className="absolute inset-0 w-full h-full object-cover"
+                        src="./aboutUs.mp4"
+                        controls
+                        poster="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1287&auto=format&fit=crop"
+                    >
+                        {t('Your browser does not support the video tag.')}
+                    </video>
+
                 </div>
             </div>
         </div>
